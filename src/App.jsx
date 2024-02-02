@@ -1,7 +1,7 @@
 // import { useState } from "react";
 import "./App.css";
-import Authenticate from "./assets/components/Authenitcate";
-import SignUpForm from "./assets/components/SignUpForm";
+import Authenticate from "./components/Authenitcate";
+import SignUpForm from "./components/SignUpForm";
 
 function App() {
   return (
