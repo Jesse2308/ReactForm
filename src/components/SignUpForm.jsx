@@ -1,11 +1,18 @@
 import { useState } from "react";
-function SignUpForm() {
+
+function SignUpForm({ setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
+    if (password.length < 8) {
+      username.length < 4;
+      setError("Password must be at least 8 characters long");
+      setError("Username must be at least 4 characters long");
+      return;
+    }
     try {
       const response = await fetch(
         "https://fsa-jwt-practice.herokuapp.com/signup",
@@ -19,6 +26,7 @@ function SignUpForm() {
       );
       const result = await response.json();
       console.log(result);
+      setToken(result.token);
     } catch (error) {
       setError(error.message);
     }

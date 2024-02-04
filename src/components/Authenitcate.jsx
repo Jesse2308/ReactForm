@@ -1,3 +1,35 @@
-export default function Authenticate() {
-  return <h2>Authenticate</h2>;
+import React, { useState } from "react";
+import SignUpForm from "./SignUpForm";
+
+export default function Authenticate({ token }) {
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [error, setError] = useState("");
+
+  async function handleClick() {
+    try {
+      const response = await fetch(
+        "https://fsa-jwt-practice.herokuapp.com/authenticate",
+        {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const result = await response.json();
+      setSuccessMessage(result.message);
+      console.log(result);
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+  return (
+    <div>
+      <h2>Authenticate</h2>
+      {successMessage && <p>{successMessage}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <button onClick={handleClick}>Authenticate</button>
+    </div>
+  );
 }
